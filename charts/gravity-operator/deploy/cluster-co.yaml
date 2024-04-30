@@ -1,0 +1,16 @@
+apiVersion: gravity.mobike.io/v1alpha1
+kind: Cluster
+metadata:
+  name: gravity-operator-cluster
+  labels:
+    app.kubernetes.io/name: gravity-operator-cluster
+    helm.sh/chart: gravity-operator-0.3.0
+    app.kubernetes.io/instance: gravity-operator
+    app.kubernetes.io/managed-by: Tiller
+spec:
+  rolling: "25%"
+  deploymentRules:
+    - group: "default"
+      pipelines: ["*"]
+      image: "moiot/gravity:v0.9.21"
+      command: ["/gravity", "-config=/etc/gravity/config.json"]
